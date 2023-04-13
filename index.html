@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Hovercard</title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+
+    
+    <style>
+        :root {
+            background-color: black;
+            --border: white;
+            --g1: rgb(12, 186, 255);
+            --g2: rgb(188, 5, 188);
+            --g3: rgb(255, 226, 62);
+        }
+
+        body {
+            margin: 0px;
+            padding: 0px;
+            place-items: center;
+        }
+
+        .card {
+            aspect-ratio: 1/1.6;
+            border: 0.5vmin solid var(--border);
+            cursor: pointer;
+            position: relative;
+            width: 56vmin;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            margin: auto;
+            margin-top: 10vh;
+            margin-bottom: 10vh;
+            max-height: 80vh;
+            text-align: center;
+        }
+
+        @media (max-width: 768px) {
+            .card {
+                width: 80vw;
+            }
+        }
+
+        @media (min-width: 769px) and (max-width: 1024px) {
+            .card {
+                width: 70vw;
+            }
+        }
+
+        @media (min-width: 1025px) {
+            .card {
+                width: 50vw;
+            }
+        }
+
+        .card:hover:before {
+            background-position: 100% 100%;
+            transform: scale(1.08, 1.03);
+        }
+
+        .card:before {
+            background: linear-gradient(130deg, transparent 0% 33%, var(--g1) 66%, 
+            var(--g2) 83.5%, var(--g3) 100%);
+
+            background-position: 0% 0%;
+            background-size: 300% 300%;
+
+            content: "";
+            height: 100%;
+            left: 0px;
+            position: absolute;
+            transition: background-position 350ms ease, transform 350ms ease;
+            top: 0px;
+            width: 100%;
+            z-index: 1;
+        }
+
+        .card-content {
+            background: radial-gradient(rgba(255, 255, 255, 0.2) 8%, transparent 8%);
+            background-position: 0% 0%;
+            background-size: 5vmin 5vmin;
+            height: calc(100% - 10vmin);
+            padding: 5vmin;
+            transition: background-position 350ms ease;
+            width: calc(100% - 10vmin);
+            position: relative;
+            z-index: 2;
+            overflow: auto;
+        }
+
+        .card:hover > .card-content {
+            background-position: -10% 0%;
+        }
+
+        .card-title, .card-subtitle, .card-tag {
+            color: white;
+            font-family: "Anek Latin", sans-serif;
+            font-weight: 400;
+            margin: 0px;
+        }
+
+        .card-title {
+            font-size: 3vmin;
+            margin-top: 2vmin;
+        }
+
+        .card-subtitle {
+            font-size: 3vmin;
+            margin-top: 2vmin;
+        }
+
+        .card-tag {
+            font-size: 3vmin;
+            margin-top: 7vmin;
+            position: absolute;
+            right: 5vmin;
+            display: inline-block;
+        }
+
+        .card-tag:hover {
+            color: black;
+        }
+
+        .card-subtitle-word {
+            display: inline-block;
+            margin: 0vmin 0.3vmin;
+            opacity: 0;
+            transform: translateY(40%);
+            transition: none;
+        }
+
+        .card:hover > .card-content > .card-subtitle > .card-subtitle-word {
+            transform: translateY(0%);
+            opacity: 1;
+            transition: opacity 0ms, transform 200ms cubic-bezier(.90, .06, .15, .90);
+        }
+
+        .card-buttons {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: calc(100% - 10vmin);
+            position: absolute;
+            bottom: 5vmin;
+            left: 5vmin;
+            z-index: 2;
+        }
+
+        .cta-button {
+            background-color: transparent;
+            text-decoration: none;
+            border-radius: 0.5vmin;
+            color: white;
+            cursor: pointer;
+            font-family: "Anek Latin", sans-serif;
+            font-size: 2vmin;
+            font-weight: 400;
+            margin-top: 1vmin;
+            padding: 0.5vmin 1vmin;
+            transition: background-color 350ms ease;
+            z-index: 2;
+            font-size: 3vmin;
+        }
+
+        .cta-button:hover {
+            color: black;
+        }
+    </style>
+</head>
+<body>
+    <div class="card">
+
+        <div class="card-content">
+            <h3 class="card-title">Interactive Hover Card Design</h3>
+
+            <h4 class="card-subtitle"></h4>
+
+            <h6 class="card-tag">By Aarnav Singh</h6>
+
+            <div class="card-buttons">
+                <a href="https://cdn.shopify.com/s/files/1/0694/7792/5170/files/Aarnav_Singh.pdf?v=1673245805" class="fas fa-certificate fa-lg" style="margin-right: 0.5rem;"></a>
+                <a href="https://github.com/aarnav1729" class="fab fa-github fa-lg" style="margin-right: 0.5rem;"></a>
+                <a href="https://www.linkedin.com/in/aarnavsinghh" class="fab fa-linkedin-in fa-lg" style="margin-right: 0.5rem;"></a>
+                <a class="cta-button" href="mailto:youremail@example.com">
+                    <i class="fas fa-envelope"></i>
+                  </a>
+                <a href="https://aarnav1729.github.io/portfolio/" target="_blank" class="cta-button">View Portfolio</a>
+            </div>
+              
+        </div>
+    </div>
+    
+    
+    <script>
+        const subtitle = document.getElementsByClassName("card-subtitle")[0];
+
+        const createWord = (text, index) => {
+            const word = document.createElement("span");
+
+            word.innerText = text;
+
+            word.classList.add("card-subtitle-word");
+
+            word.style.transitionDelay = `${index * 40}ms`;
+
+            return word;
+        }
+
+        const addWord = (text, index) => subtitle.appendChild(createWord(text, index));
+
+        const createSubtitle = (text) => text.split(" ").map(addWord);
+
+        createSubtitle("A responsive and visually stunning hover card design using CSS gradients and animations. This project demonstrates my ability to create engaging and interactive UI designs that provide a seamless user experience across multiple devices.");
+
+    </script>
+</body>
+</html>
